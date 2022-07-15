@@ -1,0 +1,47 @@
+{% extends 'taskmanager/basic_app_base.html' %}
+{% load static %}
+{% block content %}
+    {% for item in desk %}
+        <div class="container">
+            <a href="{% url 'taskmanager:create-desk' %}">+создать доску</a>
+            <a href="{% url 'taskmanager:desk-detail' item.id %}">
+                <div class="card">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+
+                            <h6 class="card-subtitle mb-2 text-muted">Таски</h6>
+                            <p class="card-text">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1"></label>
+                            </div>
+                            {% for item in columns %}
+                                <div class="card" style="width: 18rem;">
+                                    <ul class="list-group list-group-flush">
+                                        <a href="{% url 'taskmanager:card-detail' item.id %}">
+                                            <li class="list-group-item" onclick="openForm()">{{ item.title }}</li>
+                                        </a>
+                                    </ul>
+                                </div>
+                            {% endfor %}
+                            <br>
+                            <hr>
+                            <div class="form-popup" id="myForm">
+                                <form action="" class="form-container">
+                                    <h1></h1>
+                                    <label for="title"><b></b></label>
+                                    <input type="text" placeholder="description" name="text" required>
+                                    <button type="submit" class="btn cancel" onclick="closeForm()">Закрыть</button>
+                                </form>
+                            </div>
+
+                            <a href="{% url 'taskmanager:create-column' %}">Create column</a>
+                            | <a href="{% url 'taskmanager:create-card' %}">Create card</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </a>
+        <br>
+{% endfor %}
+{% endblock content %}

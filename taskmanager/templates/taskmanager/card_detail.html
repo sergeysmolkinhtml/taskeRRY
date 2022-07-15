@@ -1,0 +1,18 @@
+{% extends 'taskmanager/basic_app_base.html' %}
+{% load static %}
+{% block content %}
+    <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ card_detail.title }}</h5>
+            <p class="card-text"></p>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">описание</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1"
+                          rows="3">{{ card_detail.description }}</textarea>
+            </div>
+        </div>
+    </div>
+    <p><a class="btn btn-primary" href="{% url 'taskmanager:card-delete' pk=card_detail.id %}">Delete</a></p>
+    <p><a class="btn btn-warning" href="{% url 'taskmanager:card-update' pk=card_detail.id %}">Update</a></p>
+{% endblock content %}

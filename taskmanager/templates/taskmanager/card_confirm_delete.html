@@ -1,0 +1,11 @@
+{% extends 'taskmanager/basic_app_base.html' %}
+{% load static %}
+{% block content %}
+<h1>Delete {{ card.title }} ? </h1>
+
+    <form method="post">
+    {% csrf_token %}
+     <input type="submit" class="btn btn-danger" value="Delete">
+    <a href="{% url 'taskmanager:card-detail' pk=card.pk %}">Отмена</a>
+    </form>
+{% endblock content %}
