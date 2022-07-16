@@ -79,6 +79,11 @@ class ColumnViewSet(viewsets.ModelViewSet):
     queryset = Column.objects.all()
     serializer_class = ColumnSerializer
 
-
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+        else:
+            permission_classes = [permissions.IsAdminUser]
+        return [permission() for permission in permission_classes]
 
 
