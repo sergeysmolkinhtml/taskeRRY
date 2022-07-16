@@ -16,9 +16,28 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from taskmanager import views
+from taskmanager.api import *
+from rest_framework import routers
+
+
+router = routers.DefaultRouter(trailing_slash=True)
+router.register('api/v1/users', UserViewSet, basename='user')
+router.register('api/v1/cards',CardViewSet, basename='card')
+router.register('api/v1/columns',ColumnViewSet,basename='column')
+
+print(router.urls,sep='-')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index.as_view(),name='main'),
     path('app/',include('taskmanager.urls',namespace='taskmanager')),
+    path('accounts/',include('allauth.urls')),
+
+    #generic apis
+    path('api/v1/desk-list-create/',DeskListCreateAPIView.as_view()),
+    path('api/v1/desk-edit/<int:pk>/',DeskRetrieveUpdateDestroyAPIView.as_view()),
+
 ]
+
+urlpatterns += router.urls

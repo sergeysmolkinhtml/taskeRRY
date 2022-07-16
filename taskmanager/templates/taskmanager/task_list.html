@@ -18,7 +18,7 @@
                             {% for item in columns %}
                                 <div class="card" style="width: 18rem;">
                                     <ul class="list-group list-group-flush">
-                                        <a href="{% url 'taskmanager:card-detail' item.id %}">
+                                        <a href="{% url 'taskmanager:card-detail' pk=item.id %}">
                                             <li class="list-group-item" onclick="openForm()">{{ item.title }}</li>
                                         </a>
                                     </ul>
@@ -40,8 +40,8 @@
                         </div>
                     </div>
                 </div>
+            </a>
         </div>
-        </a>
         <br>
 {% endfor %}
 {% endblock content %}

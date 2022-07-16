@@ -18,7 +18,9 @@
         <li><a class="navbar-link" href="{% url 'taskmanager:create-column' %}">Create column</a></li>
         <hr>
         <li><a class="navbar-link" href="{% url 'taskmanager:create-card' %}">Create card</a></li>
-        <li><a class="navbar-link" href="">Create card</a></li>
+        <a href="{% url 'account_login' %}" style="color: rebeccapurple;font-weight: bold ;text-transform: uppercase;">
+            Вход
+        </a>
     </ul>
 </nav>
 <div class="container">

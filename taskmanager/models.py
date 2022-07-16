@@ -56,5 +56,5 @@ class Card(models.Model):
     def __str__(self):
         return f'{self.title} | Создано {self.created_at}'
 
-    def get_absolute_url(self):
+    def get_absolute_url(self,**kwargs):
         return reverse('taskmanager:card-detail',kwargs={'pk':self.pk})
