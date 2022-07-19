@@ -14,5 +14,5 @@
         </div>
     </div>
     <p><a class="btn btn-primary" href="{% url 'taskmanager:card-delete' pk=card_detail.id %}">Delete</a></p>
-    <p><a class="btn btn-warning" href="{% url 'taskmanager:card-update' pk=card_detail.id %}">Update</a></p>
+    <p><a class="btn btn-warning" href="{% url 'taskmanager:card-update' pk=card_detail.pk %}">Update</a></p>
 {% endblock content %}

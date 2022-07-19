@@ -18,7 +18,7 @@ from django.urls import path,include
 from taskmanager import views
 from taskmanager.api import *
 from rest_framework import routers
-
+from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView,TokenVerifyView
 
 router = routers.DefaultRouter(trailing_slash=True)
 router.register('api/v1/users', UserViewSet, basename='user')
@@ -29,10 +29,18 @@ print(router.urls,sep='-')
 
 
 urlpatterns = [
+    path('grappelli/',include('grappelli.urls')),
     path('admin/', admin.site.urls),
     path('',views.index.as_view(),name='main'),
     path('app/',include('taskmanager.urls',namespace='taskmanager')),
     path('accounts/',include('allauth.urls')),
+    path('api/v1/auth/',include('djoser.urls')),
+    path('api/v1/auth/',include('djoser.urls.authtoken')),
+    path('api/v1/auth/',include('djoser.urls.jwt')),
+
+    path('api/v1/token/',TokenObtainPairView.as_view(),name = 'token_obtain_pair'),
+    path('api/v1/token/refresh/',TokenRefreshView.as_view(),name = 'token_refresh'),
+    path('api/v1/token/verify/',TokenVerifyView.as_view(),name = 'token_verify'),
 
     #generic apis
     path('api/v1/desk-list-create/',DeskListCreateAPIView.as_view()),

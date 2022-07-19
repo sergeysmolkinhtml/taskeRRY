@@ -5,9 +5,13 @@ from django.views.generic import (View,ListView,
 
 from .models import Desk,Column,Card
 from django.urls import reverse_lazy
+from django.views.generic.edit import FormMixin
+from .forms import *
+from django.shortcuts import render,redirect
 
 class index(TemplateView):
     template_name = 'index.html'
+
 
 class DesksList(ListView):
     model = Desk
@@ -16,7 +20,8 @@ class DesksList(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(DesksList, self).get_context_data()
-        context['columns'] = Column.objects.all()
+        context['card'] = Card.objects.all()
+        context['column'] = Column.objects.all()
         return context
 
 
@@ -36,10 +41,17 @@ class CreateColumn(CreateView):
     fields = ('title','position',)
 
 
-class CreateCard(CreateView):
+class CreateCard(FormMixin,ListView):
+    template_name = 'taskmanager/card_form.html'
+    form_class = CardCreationForm
     model = Card
-    fields = ('title','position','column','user_accepted_task',)
 
+    def post(self,request,*args,**kwargs):
+        form = CardCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+        return render(request, 'taskmanager/card_form.html', context={'form':form})
 
 class CardDetail(DetailView):
     model = Card

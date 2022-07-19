@@ -15,15 +15,16 @@
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1"></label>
                             </div>
-                            {% for item in columns %}
+
+                            {% for card in card %}
                                 <div class="card" style="width: 18rem;">
                                     <ul class="list-group list-group-flush">
-                                        <a href="{% url 'taskmanager:card-detail' pk=item.id %}">
-                                            <li class="list-group-item" onclick="openForm()">{{ item.title }}</li>
-                                        </a>
+                                            <li class="list-group-item" onclick="openForm()">{{ card.column.title }}</li>
+                                        <a href="{% url 'taskmanager:card-detail' card.id %}">{{ card.title}}</a>
                                     </ul>
                                 </div>
                             {% endfor %}
+
                             <br>
                             <hr>
                             <div class="form-popup" id="myForm">
@@ -39,9 +40,11 @@
                             | <a href="{% url 'taskmanager:create-card' %}">Create card</a>
                         </div>
                     </div>
+
                 </div>
             </a>
         </div>
+
         <br>
 {% endfor %}
 {% endblock content %}

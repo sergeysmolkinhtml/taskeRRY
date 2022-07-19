@@ -8,16 +8,19 @@ from django.shortcuts import get_object_or_404
 from .serializers import UserSerializer
 from rest_framework import status, viewsets , permissions, generics
 from rest_framework.decorators import action
-
+from rest_framework.authentication import TokenAuthentication
 #desk apis
 class DeskListCreateAPIView(generics.ListCreateAPIView):
     queryset = Desk.objects.all()
     serializer_class = DeskListSerializer
-
+    permission_classes = [permissions.IsAuthenticated]
 
 class DeskRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Desk.objects.all()
     serializer_class = DeskDetailSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    #authentication_classes = (TokenAuthentication,)
+    #access via session not token
 
 #user apis
 class UserViewSet(viewsets.ViewSet):
@@ -78,6 +81,7 @@ class CardViewSet(viewsets.ModelViewSet):
 class ColumnViewSet(viewsets.ModelViewSet):
     queryset = Column.objects.all()
     serializer_class = ColumnSerializer
+
 
     def get_permissions(self):
         if self.action == 'list':

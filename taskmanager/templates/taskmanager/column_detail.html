@@ -1,0 +1,16 @@
+{% extends 'taskmanager/basic_app_base.html' %}
+{% load static %}
+{% block content %}
+    <a href="">{{ object.title }}</a>
+    <hr>
+    <h1>Задания</h1>
+    <div class="tasks">
+        <hr>
+{% for card in card %}
+
+    <a href="{% url 'taskmanager:card-detail' card.id %}"> {{ colum.card_set.all }}</a><br>
+
+    <hr>
+    </div>
+{% endfor %}
+{% endblock %}
